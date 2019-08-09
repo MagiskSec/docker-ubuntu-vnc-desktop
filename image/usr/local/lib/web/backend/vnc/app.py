@@ -122,8 +122,8 @@ def liveflv():
         # sound_cmd_parameters = []
         # sound_cmd_input = []
         cmd = ['/usr/local/ffmpeg/ffmpeg'] + sound_cmd_input + hwaccel_dev + [
-            '-video_size', '{X_WIDTH}x{X_HEIGHT}'.format(**xenvs),
-            '-framerate', '{}'.format(framerate),
+            '-video_size', '1280x720'
+            '-framerate', '30',
             '-f', 'x11grab', '-draw_mouse', '1',
             '-i', '{DISPLAY}'.format(**xenvs),
         ] + hwaccel_if + [
@@ -132,6 +132,8 @@ def liveflv():
             '-flags:v', '+global_header',
             '-vcodec', vcodec,
             '-preset', 'ultrafast',
+            '-threads', '3',
+            '-crf', '24',
             '-b_strategy', '0',
             '-pix_fmt', 'yuv420p',
             '-bsf:v', 'dump_extra=freq=e',
